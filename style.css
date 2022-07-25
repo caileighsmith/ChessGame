@@ -1,0 +1,63 @@
+body{
+    background-color: darkgray;
+}
+.square{
+    width: 12vw;
+    height: 12vh;
+}
+
+.black{
+    background-color: rgb(125, 135, 150);
+
+    font-size: 10vh;
+    text-align: center;
+}
+
+.white{
+    background-color: rgb(232, 235, 239);
+
+    font-size: 100%;
+    font-size: 10vh;
+    text-align: center;
+}
+
+#board-container{
+    width: 50vw;
+    height: 50vh;
+    /* Not working yet */
+    /*margin-left:350px;*/
+    /*margin-right: 350px;*/
+}
+
+#row0{
+    display: flex;
+    flex-direction: row;
+}
+#row1{
+    display: flex;
+    flex-direction: row-reverse;
+}
+#row2{
+    display: flex;
+    flex-direction: row;
+}
+#row3{
+    display: flex;
+    flex-direction: row-reverse;
+}
+#row4{
+    display: flex;
+    flex-direction: row;
+}
+#row5{
+    display: flex;
+    flex-direction: row-reverse;
+}
+#row6{
+    display: flex;
+    flex-direction: row;
+}
+#row7{
+    display: flex;
+    flex-direction: row-reverse;
+}
