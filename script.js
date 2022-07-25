@@ -109,6 +109,7 @@ if (boardCreated == false){
                 //++ attributes class 'white' and 'square'
                 whiteSquare.setAttribute('class', 'white square')
                 whiteSquare.setAttribute('id', 'squareId:'+i + ':'+ q)
+                whiteSquare.setAttribute('onclick', 'check(this)')
 
                 //Displaying the piece
                 if ( current[q].length != 0){
@@ -121,6 +122,7 @@ if (boardCreated == false){
                 var blackSquare = document.createElement('div')
                 blackSquare.setAttribute('class', 'black square')
                 blackSquare.setAttribute('id', 'squareId:'+i + ':' +q)
+                blackSquare.setAttribute('onclick', 'check(this)')
                 //loging each piece
                 
 
@@ -169,5 +171,25 @@ function findValues(){
     
 }
 
+function drawBoard(){
+    for (let i = 0; i <drawBoard.length; i++){
+        let curRow = board[i]
+        for (let q = 0; q <curRow.length; q++){
+            console.log(curRow[q])
+        }
+    }
+}
 
+
+function check(x){
+    console.log(x.innerHTML)
+    
+    if (x.innerHTML == '♙'){
+        console.log('White pawn')
+        
+    }
+}
+
+//call this after each move is made. Checks scoring.
 findValues()
+drawBoard()
