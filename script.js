@@ -15,7 +15,6 @@ let board = [
 //board has not been created
 let boardCreated = false
 
-
 //We start a bPawn. index = [1][0] [2][0] [3][0]
 
 
@@ -25,12 +24,29 @@ let boardCreated = false
 //index 0 and board.length-1 index(s) to access 1st rows for white, and for black (king & queen row).
 console.log(board[0], board[board.length-1])
 
-
-
-let conditions = {
-    //Win conditions | ToDo
+//movement:
+let pawn = {
+    move1 : [+0][+1],
+    //only on first move:
+    move2 : [+0][+2]
 
 }
+
+
+let knight = {
+    move1 : [-1][+2],
+    move2 : [-2][+1],
+
+    move3 : [+1][+2],
+    move4 : [+2][+1],
+
+    move5 : [+2][-1],
+    move6 : [+1][-2],
+
+    move7 : [-1][-2],
+    move8 : [-2][-1]
+}
+
 
 //Pieces attatched to their ascii symbols.
 let piece = {
@@ -121,12 +137,37 @@ if (boardCreated == false){
     }
 }
 
-
-for (let i = 0; i <board.length; i++){
-    let thisRow = board[i]
-    for (let q = 0; q < thisRow.length; q++){
-        console.log(thisRow[q])
+function findValues(){
+    let whiteValues = 0;
+    let blackValues = 0;
+    for (let i = 0; i <board.length; i++){
+    
+        let thisRow = board[i]
+        for (let q = 0; q < thisRow.length; q++){
+            let current = thisRow[q]
+            if (current.length != 0 && current[0][0] == 'w'){
+                whiteValues = whiteValues + Number(pieceValues[current])
+            }
+            else if (current.length != 0 && current[0][0] == 'b'){
+                blackValues = blackValues + Number(pieceValues[current])
+            }
+            
+            
+        }
+    
     }
-
+    let totalH1 = document.getElementById('score')
+    total = whiteValues - blackValues
+    if (total < 0){
+        total = total * -1
+        totalH1.innerHTML = 'Score: ' +total
+        totalH1.style.color = 'black'
+    }else{
+        totalH1.innerHTML = 'Score: ' +total
+        totalH1.style.color = 'white'
+    }
+    
 }
 
+
+findValues()
