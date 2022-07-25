@@ -12,6 +12,9 @@ let board = [
     [ ['wRook'], ['wKnight'], ['wBishop'], ['wQueen'], ['wKing'], ['wBishop'], ['wKnight'], ['wRook'] ]
 ]
 
+//board has not been created
+let boardCreated = false
+
 
 //We start a bPawn. index = [1][0] [2][0] [3][0]
 
@@ -51,70 +54,79 @@ let piece = {
 
 //value of the pieces.
 let pieceValues = {
-    p : 1, //pawn
-    k : 3, //knight
-    b : 3, //bishop
-    r : 5, //rook
-    q : 9, //queen
-    king : 0 //king - 0 as king taken is impossible
+    bPawn : '1',
+    bKnight : '3',
+    bBishop : '3',
+    bRook : '5',
+    bQueen : '9',
+    bKing : '0',
+
+    wPawn : '1',
+    wKnight : '3',
+    wBishop : '3',
+    wRook : '5',
+    wQueen : '9',
+    wKing : '0'
+
 }
+
 
 
 //Creating the chessboard using the 2 dimensional array created above.
-for (i in board){
-    //current row
-    let current = board[i]
+if (boardCreated == false){
+    for (i in board){
+        //current row
+        let current = board[i]
 
-    //Creating a container div
-    let currentRow = document.createElement('div')
-    currentRow.setAttribute('id', 'row'+i)
-    document.getElementById('board-container').appendChild(currentRow)
+        //Creating a container div
+        let currentRow = document.createElement('div')
+        currentRow.setAttribute('id', 'row'+i)
+        document.getElementById('board-container').appendChild(currentRow)
 
-    //Looping through each row in array.
-    for (q in current){
-        if (q % 2 == 0){
-            //Creating a square object to push to DOM
-            var whiteSquare = document.createElement('div')
-            //++ attributes class 'white' and 'square'
-            whiteSquare.setAttribute('class', 'white square')
-            whiteSquare.setAttribute('id', 'squareId:'+i + ':'+ q)
-            whiteSquare.setAttribute('onclick', 'sayHi("white")')
-            //loging each piece
-            
+        //Looping through each row in array.
+        for (q in current){
+        
+            if (q % 2 == 0){
+                
+                //Creating a square object to push to DOM
+                var whiteSquare = document.createElement('div')
+                //++ attributes class 'white' and 'square'
+                whiteSquare.setAttribute('class', 'white square')
+                whiteSquare.setAttribute('id', 'squareId:'+i + ':'+ q)
 
-            //images
-            if ( current[q].length != 0){
-                console.log('piece: '+current[q])
-                console.log(piece[current[q]])
-                whiteSquare.textContent = piece[current[q]]
-            }else {console.log('Empty square')}
-            document.getElementById('row'+i).appendChild(whiteSquare);
-        }else{
-            var blackSquare = document.createElement('div')
-            blackSquare.setAttribute('class', 'black square')
-            blackSquare.setAttribute('id', 'squareId:'+i + ':' +q)
-            blackSquare.setAttribute('onclick', 'sayHi("black")')
-            //loging each piece
-            
+                //Displaying the piece
+                if ( current[q].length != 0){
+                    console.log('piece: '+current[q])
+                    console.log(piece[current[q]])
+                    whiteSquare.textContent = piece[current[q]]
+                }else {console.log('Empty square')}
+                document.getElementById('row'+i).appendChild(whiteSquare);
+            }else{
+                var blackSquare = document.createElement('div')
+                blackSquare.setAttribute('class', 'black square')
+                blackSquare.setAttribute('id', 'squareId:'+i + ':' +q)
+                //loging each piece
+                
 
-            //images
-            if ( current[q]){
-                console.log('piece: '+current[q])
-                console.log(piece[current[q]])
-                blackSquare.textContent = piece[current[q]]
-            }else {console.log('Empty square')}
-            document.getElementById('row'+i).appendChild(blackSquare);
+                //images
+                if ( current[q]){
+                    console.log('piece: '+current[q])
+                    console.log(piece[current[q]])
+                    blackSquare.textContent = piece[current[q]]
+                }else {console.log('Empty square')}
+                document.getElementById('row'+i).appendChild(blackSquare);
+            }
+
         }
-
     }
 }
 
 
-function sayHi(x){
-    if (x == 'black'){
-        console.log('black piece')
-    }else{
-        console.log('white piece')
+for (let i = 0; i <board.length; i++){
+    let thisRow = board[i]
+    for (let q = 0; q < thisRow.length; q++){
+        console.log(thisRow[q])
     }
-    
+
 }
+
