@@ -148,11 +148,14 @@ function point(x){
         console.log([board[selectedChessPiece.id[0]][selectedChessPiece.id[1]]])
 
         board[selectedChessPiece.id[0]][selectedChessPiece.id[1]] = ''
-        board[x.id[0][x.id[1]]] = 'bP'
+        board[x.id[0][x.id[1]]] = 'PIIIECE'
         x.innerHTML = selectedChessPiece.innerHTML
 
         selectedChessPiece.innerHTML = ''
+
         
+        console.log(board)
+
     }
 
     
@@ -211,52 +214,6 @@ function clickPiece(x){
     }
    
 }
-
-//updating pieces on the board
-function updateBoard(){
-    
-
-
-}
-
-
-function findValues(){
-    let whiteValues = 0;
-    let blackValues = 0;
-    for (let i = 0; i <board.length; i++){
-    
-        let thisRow = board[i]
-        for (let q = 0; q < thisRow.length; q++){
-            let current = thisRow[q]
-            if (current.length != 0 && current[0][0] == 'w'){
-                whiteValues = whiteValues + Number(values[current])
-            }
-            else if (current.length != 0 && current[0][0] == 'b'){
-                blackValues = blackValues + Number(values[current])
-            }
-            
-            
-        }
-    
-    }
-    let totalH1 = document.getElementById('score')
-    total = whiteValues - blackValues
-    if (total < 0){
-        total = total * -1
-        totalH1.innerHTML = '+' +total
-        totalH1.style.color = 'black'
-    }else{
-        totalH1.innerHTML = '+' +total
-        totalH1.style.color = 'white'
-    }
-    
-}
-
-
-findValues()
-
-
-updateBoard()
 
 
 
