@@ -209,11 +209,17 @@ function checkPoints(){
     }
 
     score = blackScore - whiteScore
+    console.log('SCOOOORE',score)
+    let bar = document.getElementById('bar');
+
+    bar.style.width = 50+score+'%'
+
 
     if (score < 0){
         let finalScore = 'W+'+score * -1
         console.log(finalScore)
         scoreDom.innerHTML = finalScore
+        
         
     }else if (score > 0){
         let finalScore = 'B+'+score
@@ -245,16 +251,16 @@ function hideMusic(){
     let music = document.getElementById('music')
     let button = document.getElementById('musicBtn')
     
-    if (musicOn == true){
-        button.innerHTML = 'Hide'
-        music.style.display = 'none'
-        musicOn = false
-        
-    }else if (musicOn == false){
-        musicOn.innerHTML = 'Show'
+    if (music.style.display == 'none'){
         music.style.display = 'flex'
-        musicOn = true
+        button.innerHTML = 'Close'
+    }else{
+        music.style.display = 'none'
+        button.innerHTML = 'Music options'
     }
+    
+
+    
 }
 
 

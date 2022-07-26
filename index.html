@@ -12,17 +12,22 @@
     
 </head>
 <body>
-
-    <h1 id="score"></h1>
     <h1><s>Chess</s> Mess.com</h1>
     
+    
+    <div id="scoreBar">
+        <div id="bar">
+            <p style="text-align:center; color: white;" id="score"></p>
+        </div>
+    </div>
+
     <div id="main-container">
         <div id="board-container">
             <h2 id="score"></h2>
-            <div id="music">
+            <div id="music" style="display:none;">
                 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6kDa0wKrilk4vFfHtUWJIe?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
             </div>
-            <button id='musicBtn' onclick="hideMusic()">Hide</button>
+            <button id='musicBtn' onclick="hideMusic()">Music options</button>
     
         </div>
     </div>
