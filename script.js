@@ -181,70 +181,64 @@ function point(x){
 
         
         console.log(board)
+        checkPoints()
         
     }
+}
 
-    
 
-    
+
+//function checks points on board.
+function checkPoints(){
+    let scoreDom = document.getElementById('score')
+    let whiteScore = 0;
+    let blackScore = 0;
+    for (let i = 0; i < board.length; i++){
+        
+        let currentRow = board[i]
+        for (let q  = 0; q<currentRow.length; q++){
+
+            if (currentRow[q].length != 0 && currentRow[q][0][0] == 'w'){
+                whiteScore = whiteScore + values[currentRow[q]]
+            }else if (currentRow[q].length != 0 && currentRow[q][0][0] == 'b'){
+                blackScore = blackScore + values[currentRow[q]]
+            }
+        
+        }
+
+    }
+
+    score = blackScore - whiteScore
+
+    if (score < 0){
+        let finalScore = 'W+'+score * -1
+        console.log(finalScore)
+        scoreDom.innerHTML = finalScore
+        
+    }else if (score > 0){
+        let finalScore = 'B+'+score
+        console.log(finalScore)
+        scoreDom.innerHTML = finalScore
+    }else{
+        finalScore = score
+        console.log(finalScore)
+        scoreDom.innerHTML = finalScore
+    }
 
 }
 
+
+
+
+
+
+
+
+//MISC functions
 
 function geyKey(object, value) {
     return String(Object.keys(object).find(key => object[key] === value));
 }
-
-
-
-
-function clickPiece(x){
-
-
-    
-
-
-    //if the square is currently taken by a piece
-    if (x.innerHTML != ''){
-    
-        var pieceSelected = true
-        console.log('piece: '+x.innerHTML, 'taken: '+pieceSelected)
-        //assinging pos variable
-        let pos = x.id
-        console.log('Array position: '+pos)
-
-        //storing selected coords as selected piece
-        let selectedPiece = board[pos[0]][pos[1]]
-
-        //id is formated to YX. 0 is y, 1 is x. hence they are used to access co ords.
-        console.log(board[pos[0]][pos[1]])
-        
-        console.log('value: ' +values[board[pos[0]][pos[1]]])
-
-        let pieceInfo = document.getElementById('pieceInfo')
-
-        pieceInfo.innerHTML = selectedPiece + ' value: ' +values[board[pos[0]][pos[1]]] +'. array pos: '+pos 
-        
-        
-       
-        
-
-    //if the square is NOT taken by a piece
-    }else{
-        var pieceSelected = false
-        console.log('empty square')
-        console.log('piece: '+x.innerHTML, 'taken: '+pieceSelected)
-        //assinging pos variable
-        let pos = x.id
-        console.log('Array position: '+pos)
-
-
-
-    }
-
-
-}
-
 
 var musicOn = true;
 function hideMusic(){
@@ -260,10 +254,7 @@ function hideMusic(){
         musicOn.innerHTML = 'Show'
         music.style.display = 'flex'
         musicOn = true
-        
-        
     }
-    
 }
 
 
