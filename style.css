@@ -15,6 +15,9 @@ body{
     animation-duration: 2s;
 }
 
+#music{
+    width: 350px;
+}
 
 .black{
     background-color: darkkhaki;
