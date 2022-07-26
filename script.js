@@ -12,6 +12,8 @@ let board = [
     [['wR'],['wK'],['wB'],['wQ'],['wKn'],['wB'],['wK'],['wR']] 
 ]
 
+
+
 //building pieces
 let piece = {
     //black pieces with ascii
@@ -73,7 +75,7 @@ function createBoard(){
                 if (q % 2 == 0){
                     //then we put the white square on the DOM.
                     square.setAttribute('class', 'square black')
-                    square.setAttribute('onclick', 'clickPiece(this)')
+                    square.setAttribute('onclick', 'point(this)')
                     square.setAttribute('id', String(i) + String(q))
                     square.textContent = piece[row[q]]
                     rowDom.appendChild(square)
@@ -81,7 +83,7 @@ function createBoard(){
                     //else we put the black square on the DOM.
                     square.textContent = piece[row[q]]
                     square.setAttribute('class', 'square white')
-                    square.setAttribute('onclick', 'clickPiece(this)')
+                    square.setAttribute('onclick', 'point(this)')
                     square.setAttribute('id', String(i) + String(q))
                     rowDom.appendChild(square)
 
@@ -92,14 +94,14 @@ function createBoard(){
                 if (q % 2 == 0){
                     //then we put the white square on the DOM.
                     square.setAttribute('class', 'square white')
-                    square.setAttribute('onclick', 'clickPiece(this)')
+                    square.setAttribute('onclick', 'point(this)')
                     square.setAttribute('id', String(i) + String(q))
                     square.textContent = piece[row[q]]
                     rowDom.appendChild(square)
                 }else{
                     //else we put the black square on the DOM.
                     square.setAttribute('class', 'square black')
-                    square.setAttribute('onclick', 'clickPiece(this)')
+                    square.setAttribute('onclick', 'point(this)')
                     square.setAttribute('id', String(i) + String(q))
                     square.textContent = piece[row[q]]
                     rowDom.appendChild(square)
@@ -109,9 +111,65 @@ function createBoard(){
         }
     }
 }
+//selected should be false if function has not been called yet.
+var selectedTF = false
+var selectedChessPiece = ''
+function point(x){
+    
+
+    if (!selectedTF){
+        //if there is a piece 
+        if (x.innerHTML != ''){
+            selectedTF = true
+            selectedChessPiece = x
+            console.log(selectedChessPiece.id)
+            if (selectedChessPiece.innerHTML == '♟'){
+                console.log('clicked once')
+
+
+            }
+        }
+    //this means if the current piece has been selected:    
+    }else if (selectedTF & selectedChessPiece != x){
+
+        //destination piece
+        let destinationPiece = x
+
+        //create distanceBetween, equal to the difference between the selected pice and the destination piece
+        
+        let distanceBetween = String(selectedChessPiece.id)[0] - String(x.id)[0] + ' ' + String(selectedChessPiece.id[1] - String(x.id[1]))
+
+        console.log('destination: '+destinationPiece.id)
+        selectedTF = false
+        console.log('distance between: ' +distanceBetween)
+
+        //move the chess piece
+       
+        console.log([board[selectedChessPiece.id[0]][selectedChessPiece.id[1]]])
+
+        board[selectedChessPiece.id[0]][selectedChessPiece.id[1]] = ''
+        board[x.id[0][x.id[1]]] = 'bP'
+        x.innerHTML = selectedChessPiece.innerHTML
+
+        selectedChessPiece.innerHTML = ''
+        
+    }
+
+    
+
+    
+
+}
+
+
+
+
 
 
 function clickPiece(x){
+
+
+    
 
 
     //if the square is currently taken by a piece
@@ -134,6 +192,9 @@ function clickPiece(x){
         let pieceInfo = document.getElementById('pieceInfo')
 
         pieceInfo.innerHTML = selectedPiece + ' value: ' +values[board[pos[0]][pos[1]]] +'. array pos: '+pos 
+        
+        console.log('wow')
+
 
     //if the square is NOT taken by a piece
     }else{
@@ -143,6 +204,8 @@ function clickPiece(x){
         //assinging pos variable
         let pos = x.id
         console.log('Array position: '+pos)
+
+       
 
 
     }
@@ -180,10 +243,10 @@ function findValues(){
     total = whiteValues - blackValues
     if (total < 0){
         total = total * -1
-        totalH1.innerHTML = 'Score: ' +total
+        totalH1.innerHTML = '+' +total
         totalH1.style.color = 'black'
     }else{
-        totalH1.innerHTML = 'Score: ' +total
+        totalH1.innerHTML = '+' +total
         totalH1.style.color = 'white'
     }
     

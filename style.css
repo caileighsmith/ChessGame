@@ -1,6 +1,7 @@
 body{
-    background-color: darkgray;
+    background-color: grey;
 }
+
 
 
 .square{
@@ -15,7 +16,7 @@ body{
 
 
 .black{
-    background-color: rgb(125, 135, 150);
+    background-color: darkgray;
     font-size: 10vh;
     text-align: center;
 }
