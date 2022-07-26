@@ -246,14 +246,14 @@ function geyKey(object, value) {
     return String(Object.keys(object).find(key => object[key] === value));
 }
 
-var musicOn = true;
-function hideMusic(){
+
+function musicToggle(){
     let music = document.getElementById('music')
     let button = document.getElementById('musicBtn')
     
     if (music.style.display == 'none'){
         music.style.display = 'flex'
-        button.innerHTML = 'Close'
+        button.innerHTML = 'Close music options'
     }else{
         music.style.display = 'none'
         button.innerHTML = 'Music options'
@@ -261,6 +261,20 @@ function hideMusic(){
     
 
     
+}
+
+
+function podcastToggle(){
+    let podcast = document.getElementById('podcast')
+    let podcastBtn = document.getElementById('podcastBtn')
+
+    if (podcast.style.display == 'none'){
+        podcast.style.display = 'flex'
+        podcastBtn.innerHTML = 'Close podcast options'
+    }else{
+        podcast.style.display = 'none'
+        podcastBtn.innerHTML = 'Podcast options'
+    }
 }
 
 

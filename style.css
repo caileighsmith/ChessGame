@@ -50,11 +50,7 @@ button{
     animation-duration: 2s;
 }
 
-#music{
-    width: 350px;
-    display: flex;
-    justify-content: center;
-}
+
 
 .black{
     background-color: #769655;

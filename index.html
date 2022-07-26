@@ -25,9 +25,14 @@
         <div id="board-container">
             <h2 id="score"></h2>
             <div id="music" style="display:none;">
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6kDa0wKrilk4vFfHtUWJIe?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <iframe id='music'style="border-radius:12px" src="https://open.spotify.com/embed/track/6kDa0wKrilk4vFfHtUWJIe?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
             </div>
-            <button id='musicBtn' onclick="hideMusic()">Music options</button>
+            <br>
+            <div id="podcast" style="display: none">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/show/4rOoJ6Egrf8K2IrywzwOMk?utm_source=generator&t=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            </div>
+            <button id="podcastBtn" onclick="podcastToggle()">Podcast options</button>
+            <button id='musicBtn' onclick="musicToggle()">Music options</button>
     
         </div>
     </div>
