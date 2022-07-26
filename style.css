@@ -1,6 +1,7 @@
 body{
     background-color: gray;
     font-family: 'Roboto', sans-serif;
+
     text-align: center;
 }
 h1{
@@ -30,7 +31,7 @@ button{
 }
 
 #main-container{
-    height: 100vh;
+    height: 120vh;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -93,21 +94,21 @@ button{
  @media only screen and (max-width: 600px) {
     
     .square{
-        width: 7vh;
-        height: 7vh;
+        width: 10vw;
+        height: 10vw;
         
     }
     .black{
         background-color: #769655;
         color: black;
-        font-size: 7vh;
+        font-size: 5vh;
         text-align: center;
     }
     
     .white{
         background-color: #fffdd0;
     
-        font-size: 7vh;
+        font-size: 5vh;
         text-align: center;
         
         
@@ -119,6 +120,9 @@ button{
         /* Not working yet */
         /*margin-left:350px;*/
         /*margin-right: 350px;*/
+    }
+    #main-container{
+        height: 100vh;
     }
     
   }

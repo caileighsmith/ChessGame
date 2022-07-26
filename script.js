@@ -119,8 +119,10 @@ function createBoard(){
 //selected should be false if function has not been called yet.
 var selectedTF = false
 var selectedChessPiece = ''
+var allowedKnightMovements = []
+var allowedToMove = false
 function point(x){
-    
+    allowedToMove = false
 
     if (!selectedTF){
         //if there is a piece 
@@ -128,63 +130,118 @@ function point(x){
             selectedTF = true
             selectedChessPiece = x
             console.log(selectedChessPiece.id)
-            if (selectedChessPiece.innerHTML == '♟'){
-                console.log('clicked once')
 
+            //if its a knight,  these are the allowed pos's. no pathfinding yet.
+            if (selectedChessPiece.innerHTML == '♘'){
 
+                knightPos = [Number(x.id[0]), Number(x.id[1])]
+
+                console.log('allowed POS(s): ')
+                allowedKnightMovements = knightMovement(knightPos)
             }
         }
     //this means if the current piece has been selected:    
     }else if (selectedTF & selectedChessPiece != x){
 
         console.log('THIS IS: '+x.innerHTML)
+        if (allowedKnightMovements != []){
+            console.log([Number(x.id[0]),Number(x.id[1])])
+            for (item in allowedKnightMovements){
+                console.log(allowedKnightMovements[item])
+                if (String(allowedKnightMovements[item]) == String([Number(x.id[0]),Number(x.id[1])])){
+                    alert('move allowed')
+                    allowedToMove = true
+                    break
+                }
+            }
+
+
+        } 
+
+        if (allowedToMove == true){
+            if (x.innerHTML){
+                //if the taken piece is the white queen, black wins.
+                if (x.innerHTML == '♔'){
+                    alert('BLACK WON')
+                }
+                //if the taken piece is the black queen, white wins.
+                if (x.innerHTML == '♚'){
+                    alert('WHITE WON')
+                }
+                taken.play()
+                
+    
+            //and if piece is not taken
+            }else{
+                moveFx.play()
+            }
+            
+            //destination piece
+            let destinationPiece = x
+    
+            //create distanceBetween, equal to the difference between the selected pice and the destination piece
+            
+            let distanceBetween = String(selectedChessPiece.id)[0] - String(x.id)[0] + ' ' + String(selectedChessPiece.id[1] - String(x.id[1]))
+    
+            console.log('destination: '+destinationPiece.id)
+            selectedTF = false
+            console.log('distance between: ' +distanceBetween)
+    
+            //move the chess piece
+           
+            console.log([board[selectedChessPiece.id[0]][selectedChessPiece.id[1]]])
+    
+            board[selectedChessPiece.id[0]][selectedChessPiece.id[1]] = ''
+    
+            board[x.id[0]][x.id[1]] = geyKey(piece, selectedChessPiece.innerHTML)
+    
+            x.innerHTML = selectedChessPiece.innerHTML
+    
+            selectedChessPiece.innerHTML = ''
+    
+            
+            console.log(board)
+            checkPoints()
+        }
 
         //Checking if piece is taken
-        if (x.innerHTML){
-            //if the taken piece is the white queen, black wins.
-            if (x.innerHTML == '♔'){
-                alert('BLACK WON')
-            }
-            //if the taken piece is the black queen, white wins.
-            if (x.innerHTML == '♚'){
-                alert('WHITE WON')
-            }
-            taken.play()
-
-        //and if piece is not taken
-        }else{
-            moveFx.play()
-        }
         
-        //destination piece
-        let destinationPiece = x
-
-        //create distanceBetween, equal to the difference between the selected pice and the destination piece
-        
-        let distanceBetween = String(selectedChessPiece.id)[0] - String(x.id)[0] + ' ' + String(selectedChessPiece.id[1] - String(x.id[1]))
-
-        console.log('destination: '+destinationPiece.id)
-        selectedTF = false
-        console.log('distance between: ' +distanceBetween)
-
-        //move the chess piece
-       
-        console.log([board[selectedChessPiece.id[0]][selectedChessPiece.id[1]]])
-
-        board[selectedChessPiece.id[0]][selectedChessPiece.id[1]] = ''
-
-        board[x.id[0]][x.id[1]] = geyKey(piece, selectedChessPiece.innerHTML)
-
-        x.innerHTML = selectedChessPiece.innerHTML
-
-        selectedChessPiece.innerHTML = ''
-
-        
-        console.log(board)
-        checkPoints()
         
     }
 }
+
+
+//knight movement function. Current pos should be an array pos. Example: knightMovement(currentPos[0,1]).
+function knightMovement(currentPos){
+    
+    let positions = []
+
+    //These are coordinate transformations. Knight can transform by any of these.
+    let moves = [
+        
+        [-2,+1],
+        [-1,+2],  
+        
+        [-2,-1],  
+        [-1,-2],  
+        
+        [+1,+2],  
+        [+2,+1],  
+        
+        [+2,-1],  
+        [-1,-2],       
+    ]
+
+
+    for (item in moves){
+        positions.push([(moves[item][0]+currentPos[0]), (moves[item][1]+currentPos[1])])
+    }   
+
+    //returns array of all possible positions the knight can move to when called.
+    console.log(positions)
+    return positions
+}
+
 
 
 
