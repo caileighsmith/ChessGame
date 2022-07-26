@@ -1,6 +1,11 @@
 //creating board.
 let boardContainer = document.getElementById('board-container')
 
+//var moveFx = document.getElementById("myAudio"); 
+
+var moveFx = new Audio('sounds/move.mp3');
+var taken = new Audio('sounds/taken.mp3');
+
 let board = [
     [['bR'],['bK'],['bB'],['bQ'],['bKn'],['bB'],['bK'],['bR']],
     [['bP'],['bP'],['bP'],['bP'],['bP'],['bP'],['bP'],['bP']],
@@ -132,6 +137,25 @@ function point(x){
     //this means if the current piece has been selected:    
     }else if (selectedTF & selectedChessPiece != x){
 
+        console.log('THIS IS: '+x.innerHTML)
+
+        //Checking if piece is taken
+        if (x.innerHTML){
+            //if the taken piece is the white queen, black wins.
+            if (x.innerHTML == '♔'){
+                alert('BLACK WON')
+            }
+            //if the taken piece is the black queen, white wins.
+            if (x.innerHTML == '♚'){
+                alert('WHITE WON')
+            }
+            taken.play()
+
+        //and if piece is not taken
+        }else{
+            moveFx.play()
+        }
+        
         //destination piece
         let destinationPiece = x
 
@@ -148,14 +172,16 @@ function point(x){
         console.log([board[selectedChessPiece.id[0]][selectedChessPiece.id[1]]])
 
         board[selectedChessPiece.id[0]][selectedChessPiece.id[1]] = ''
-        board[x.id[0][x.id[1]]] = 'PIIIECE'
+
+        board[x.id[0]][x.id[1]] = geyKey(piece, selectedChessPiece.innerHTML)
+
         x.innerHTML = selectedChessPiece.innerHTML
 
         selectedChessPiece.innerHTML = ''
 
         
         console.log(board)
-
+        
     }
 
     
@@ -165,6 +191,9 @@ function point(x){
 }
 
 
+function geyKey(object, value) {
+    return String(Object.keys(object).find(key => object[key] === value));
+}
 
 
 
@@ -196,8 +225,9 @@ function clickPiece(x){
 
         pieceInfo.innerHTML = selectedPiece + ' value: ' +values[board[pos[0]][pos[1]]] +'. array pos: '+pos 
         
-        console.log('wow')
-
+        
+       
+        
 
     //if the square is NOT taken by a piece
     }else{
@@ -208,7 +238,6 @@ function clickPiece(x){
         let pos = x.id
         console.log('Array position: '+pos)
 
-       
 
 
     }
