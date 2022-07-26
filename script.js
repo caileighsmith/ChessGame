@@ -213,7 +213,28 @@ function clickPiece(x){
 
     }
 
-   
+
+}
+
+
+var musicOn = true;
+function hideMusic(){
+    let music = document.getElementById('music')
+    let button = document.getElementById('musicBtn')
+    
+    if (musicOn == true){
+        button.innerHTML = 'Hide'
+        music.style.display = 'none'
+        musicOn = false
+        
+    }else if (musicOn == false){
+        musicOn.innerHTML = 'Show'
+        music.style.display = 'flex'
+        musicOn = true
+        
+        
+    }
+    
 }
 
 

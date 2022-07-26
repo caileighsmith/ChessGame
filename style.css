@@ -1,8 +1,29 @@
 body{
-    background-color: grey;
-
+    background-color: white;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+h1{
+    color: black;
+    
 }
 
+button{
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    border: 0;
+    font-size: 15px;
+}
+
+#main-container{
+
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    background-color: #262421;
+    border-radius: 5px;
+}
 
 
 .square{
@@ -17,25 +38,32 @@ body{
 
 #music{
     width: 350px;
+    display: flex;
+    justify-content: center;
 }
 
 .black{
-    background-color: darkkhaki;
+    background-color: #769655;
     color: black;
     font-size: 10vh;
     text-align: center;
 }
 
 .white{
-    background-color: rgb(232, 235, 239);
+    background-color: #fffdd0;
     font-size: 100%;
     font-size: 10vh;
     text-align: center;
+    
+    
 }
 
 #board-container{
-
-    width: 50vw;
+    padding: 100px;
+    padding-top: 200px;
+    padding-bottom: 200px;
+    text-align: center;
+    width: 60vw;
     height: auto;
     /* Not working yet */
     /*margin-left:350px;*/
