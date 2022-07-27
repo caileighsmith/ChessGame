@@ -67,7 +67,6 @@ function createBoard(){
         let rowDom = document.createElement('div')
         rowDom.setAttribute('class', 'row n-'+i)
         boardContainer.appendChild(rowDom)
-        console.log(i)
         //looping through each row
         for (let q = 0; q<row.length; q++){
             
@@ -116,18 +115,26 @@ function createBoard(){
         }
     }
 }
+
+
 //selected should be false if function has not been called yet.
 var selectedTF = false
 var selectedChessPiece = ''
 var allowedKnightMovements = []
 var allowedPawnMoves = []
 var allowedRookMoves = []
+var allowedBishopMoves = []
+var allowedQueenMoves = []
+var allowedKingMoves = []
 
 var allowedToMove = false
 function point(x){
     allowedToMove = false
 
     if (!selectedTF){
+
+        
+
         //if there is a piece 
         if (x.innerHTML != ''){
             selectedTF = true
@@ -138,7 +145,6 @@ function point(x){
 
             //if its a knight,  these are the allowed pos's. no pathfinding yet.
             if (selectedChessPiece.innerHTML == '♘' || selectedChessPiece.innerHTML == '♞'){
-                console.log('allowed POS(s): ')
                 allowedKnightMovements = knightMovement(piecePos)
             }
 
@@ -155,6 +161,20 @@ function point(x){
                 allowedRookMoves = rookMovement(piecePos)
                 
             }
+
+            if (selectedChessPiece.innerHTML == '♝' || selectedChessPiece.innerHTML == '♗'){
+                allowedBishopMoves = bishopMovement(piecePos)
+                console.log('bishop')
+            }
+
+            if (selectedChessPiece.innerHTML == '♕' || selectedChessPiece.innerHTML == '♛'){
+                allowedQueenMoves = queenMovement(piecePos)
+            }
+
+            if (selectedChessPiece.innerHTML == '♔' || selectedChessPiece.innerHTML == '♚'){
+                allowedKingMoves = kingMovement(piecePos)
+            }
+
             
             
 
@@ -162,7 +182,7 @@ function point(x){
         }
     //this means if the current piece has been selected:    
     }else if (selectedTF & selectedChessPiece != x){
-
+        console.log('TAKEN PIECE:' +x.innerHTML)
         //this function allows moves to work by checking if the moved to position is a legal pos.
         function allowMove(array){
             if (array != []){
@@ -171,17 +191,24 @@ function point(x){
                 for (item in array){
                     console.log(array[item])
                     if (String(array[item]) == String([Number(x.id[0]),Number(x.id[1])])){
-                        alert('move allowed')
+                        console.log('item', array[item])
                         allowedToMove = true
                         break
                     }
+                    
                 }
             } 
         }
+
+        
+
         //calling the function above for all types of pieces.
         allowMove(allowedKnightMovements)
         allowMove(allowedPawnMoves)
         allowMove(allowedRookMoves)
+        allowMove(allowedBishopMoves)
+        allowMove(allowedQueenMoves)
+        allowMove(allowedKingMoves)
 
         //if the move is permitted. (remove this if statemnt in order to allow pieces to work if not knight)
         if (allowedToMove == true){
@@ -263,7 +290,6 @@ function checkPoints(){
     }
 
     score = blackScore - whiteScore
-    console.log('SCOOOORE',score)
     let bar = document.getElementById('bar');
 
     bar.style.width = 50+score+'%'
@@ -296,6 +322,7 @@ function checkPoints(){
 
 //MISC functions
 
+//get Key from object value function
 function geyKey(object, value) {
     return String(Object.keys(object).find(key => object[key] === value));
 }
@@ -423,8 +450,134 @@ function rookMovement(currentPos){
     return positions
 }
 
-//Bishop
+//Bishop moves
+function bishopMovement(currentPos){
+    let positions = []
 
+    let moves = [
+        [+1,+1],
+        [+2,+2],
+        [+3,+3],
+        [+4,+4],
+        [+5,+5],
+        [+6,+6],
+        [+7,+7],
+
+        [+1,-1],
+        [+2,-2],
+        [+3,-3],
+        [+4,-4],
+        [+5,-5],
+        [+6,-6],
+        [+7,-7],
+
+        [-1,-1],
+        [-2,-2],
+        [-3,-3],
+        [-4,-4],
+        [-5,-5],
+        [-6,-6],
+        [-7,-7],
+        
+        [-1,+1],
+        [-2,+2],
+        [-3,+3],
+        [-4,+4],
+        [-5,+5],
+        [-6,+6],
+        [-7,+7]
+        
+
+    ]
+
+    
+   
+
+    for (item in moves){
+        positions.push([(moves[item][0]+currentPos[0]), (moves[item][1]+currentPos[1])])
+
+    }
+
+    return positions
+}
+
+//queen moves
+function queenMovement(currentPos){
+    let positions = []
+
+    //first bit (here) is the same as bishop. Bishop moves:
+    let moves = [
+        [+1,+1],
+        [+2,+2],
+        [+3,+3],
+        [+4,+4],
+        [+5,+5],
+        [+6,+6],
+        [+7,+7],
+
+        [+1,-1],
+        [+2,-2],
+        [+3,-3],
+        [+4,-4],
+        [+5,-5],
+        [+6,-6],
+        [+7,-7],
+
+        [-1,-1],
+        [-2,-2],
+        [-3,-3],
+        [-4,-4],
+        [-5,-5],
+        [-6,-6],
+        [-7,-7],
+        
+        [-1,+1],
+        [-2,+2],
+        [-3,+3],
+        [-4,+4],
+        [-5,+5],
+        [-6,+6],
+        [-7,+7]
+        
+
+    ]
+
+    //rook moves.
+    for (let i = 0; i <8; i++){
+        moves.push([+i,0])
+        moves.push([-i,0])
+        moves.push([0,+i])
+        moves.push([0,-i])
+    }
+    for (item in moves){
+        positions.push([(moves[item][0]+currentPos[0]), (moves[item][1]+currentPos[1])])
+
+    }
+
+    return positions
+}
+
+//king
+function kingMovement(currentPos){
+    let positions = []
+    let moves = [
+        [+1,0],
+        [-1,0],
+        [0,+1],
+        [0,-1],
+        //diag moves
+        [+1,+1],
+        [-1,-1],
+        [+1,-1],
+        [-1,+1]
+    ]  
+    for (item in moves){
+        positions.push([(moves[item][0]+currentPos[0]), (moves[item][1]+currentPos[1])])
+
+    }
+
+    return positions
+}
 
 
 

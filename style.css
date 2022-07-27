@@ -1,15 +1,23 @@
 body{
-    background-color: gray;
-    font-family: 'Roboto', sans-serif;
+    background-color: #262421;
+    font-family: 'Lato', sans-serif;
 
     text-align: center;
 }
 h1{
-    color: black;
+    color: white;
     
 }
 
+.circle{
+    background-color: lightgray;
+    border-radius: 20px;
+    height:20px;
+    width: 20px;
+}
+
 #scoreBar {
+    
     width: 100%;
     background-color: white;
     border-radius: 5px;
@@ -23,6 +31,7 @@ h1{
 }
 
 button{
+    padding: 10px;
     background-color: black;
     color: white;
     border-radius: 5px;
@@ -78,6 +87,11 @@ button{
     /*margin-right: 350px;*/
 }
 
+#board-container > p{
+    color: white;
+    font-size: larger;
+}
+
 .row{
     display: flex;
     flex-direction: row;
@@ -103,6 +117,7 @@ button{
         color: black;
         font-size: 5vh;
         text-align: center;
+        
     }
     
     .white{

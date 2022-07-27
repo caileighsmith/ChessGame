@@ -4,38 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chess Game</title>
+    <title>Chess</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
         
 </head>
 <body>
-    <h1><s>Chess</s> Mess.com</h1>
-    
-    
-    <div id="scoreBar">
-        <div id="bar">
-            <p style="text-align:center; color: white;" id="score"></p>
-        </div>
-    </div>
-
+    <h1>Offline chess.</h1>
     <div id="main-container">
         <div id="board-container">
+            <p>scoring:</p>
+            <div id="scoreBar">
+                <div id="bar">
+                    <p style="text-align:center; color: white;" id="score"></p>
+                </div>
+            </div>
             <h2 id="score"></h2>
             <div id="music" style="display:none;">
                 <iframe id='music'style="border-radius:12px" src="https://open.spotify.com/embed/track/6kDa0wKrilk4vFfHtUWJIe?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                
             </div>
-            <br>
+            
             <div id="podcast" style="display: none">
                 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/show/4rOoJ6Egrf8K2IrywzwOMk?utm_source=generator&t=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
             </div>
+            
             <br>
             
             <button id="podcastBtn" onclick="podcastToggle()">Podcast options</button>
             <button id='musicBtn' onclick="musicToggle()">Music options</button>
-    
+            <br><br>
         </div>
         
     </div>
