@@ -308,7 +308,7 @@ function checkPoints(){
     }else{
         finalScore = score
         console.log(finalScore)
-        scoreDom.innerHTML = finalScore
+        scoreDom.innerHTML = 'neutral'
     }
 
 }
@@ -582,3 +582,4 @@ function kingMovement(currentPos){
 
 
 createBoard()
+checkPoints()
