@@ -120,6 +120,9 @@ function createBoard(){
 var selectedTF = false
 var selectedChessPiece = ''
 var allowedKnightMovements = []
+var allowedPawnMoves = []
+var allowedRookMoves = []
+
 var allowedToMove = false
 function point(x){
     allowedToMove = false
@@ -131,33 +134,56 @@ function point(x){
             selectedChessPiece = x
             console.log(selectedChessPiece.id)
 
+            let piecePos = [Number(x.id[0]), Number(x.id[1])]
+
             //if its a knight,  these are the allowed pos's. no pathfinding yet.
-            if (selectedChessPiece.innerHTML == '♘'){
-
-                knightPos = [Number(x.id[0]), Number(x.id[1])]
-
+            if (selectedChessPiece.innerHTML == '♘' || selectedChessPiece.innerHTML == '♞'){
                 console.log('allowed POS(s): ')
-                allowedKnightMovements = knightMovement(knightPos)
+                allowedKnightMovements = knightMovement(piecePos)
             }
+
+            //checking if pawn (black and white)
+            if (selectedChessPiece.innerHTML == '♟'){
+                allowedPawnMoves = pawnMovement(piecePos, 'black')
+            }
+            if (selectedChessPiece.innerHTML == '♙'){
+                allowedPawnMoves = pawnMovement(piecePos, 'white')
+            }
+
+            //checking if rook
+            if (selectedChessPiece.innerHTML == '♜' || selectedChessPiece.innerHTML == '♖'){
+                allowedRookMoves = rookMovement(piecePos)
+                
+            }
+            
+            
+
+
         }
     //this means if the current piece has been selected:    
     }else if (selectedTF & selectedChessPiece != x){
 
-        console.log('THIS IS: '+x.innerHTML)
-        if (allowedKnightMovements != []){
-            console.log([Number(x.id[0]),Number(x.id[1])])
-            for (item in allowedKnightMovements){
-                console.log(allowedKnightMovements[item])
-                if (String(allowedKnightMovements[item]) == String([Number(x.id[0]),Number(x.id[1])])){
-                    alert('move allowed')
-                    allowedToMove = true
-                    break
+        //this function allows moves to work by checking if the moved to position is a legal pos.
+        function allowMove(array){
+            if (array != []){
+                //logging for debugs.
+                console.log([Number(x.id[0]),Number(x.id[1])])
+                for (item in array){
+                    console.log(array[item])
+                    if (String(array[item]) == String([Number(x.id[0]),Number(x.id[1])])){
+                        alert('move allowed')
+                        allowedToMove = true
+                        break
+                    }
                 }
-            }
+            } 
+        }
+        //calling the function above for all types of pieces.
+        allowMove(allowedKnightMovements)
+        allowMove(allowedPawnMoves)
+        allowMove(allowedRookMoves)
 
-
-        } 
-
+        //if the move is permitted. (remove this if statemnt in order to allow pieces to work if not knight)
         if (allowedToMove == true){
             if (x.innerHTML){
                 //if the taken piece is the white queen, black wins.
@@ -211,36 +237,7 @@ function point(x){
 }
 
 
-//knight movement function. Current pos should be an array pos. Example: knightMovement(currentPos[0,1]).
-function knightMovement(currentPos){
-    
-    let positions = []
 
-    //These are coordinate transformations. Knight can transform by any of these.
-    let moves = [
-        
-        [-2,+1],
-        [-1,+2],  
-        
-        [-2,-1],  
-        [-1,-2],  
-        
-        [+1,+2],  
-        [+2,+1],  
-        
-        [+2,-1],  
-        [-1,-2],       
-    ]
-
-
-    for (item in moves){
-        positions.push([(moves[item][0]+currentPos[0]), (moves[item][1]+currentPos[1])])
-    }   
-
-    //returns array of all possible positions the knight can move to when called.
-    console.log(positions)
-    return positions
-}
 
 
 
@@ -333,6 +330,101 @@ function podcastToggle(){
         podcastBtn.innerHTML = 'Podcast options'
     }
 }
+
+//chess piece MOVES below
+
+
+//knight movement function. Current pos should be an array pos. Example: knightMovement(currentPos[0,1]).
+function knightMovement(currentPos){
+    
+    let positions = []
+
+    //These are coordinate transformations. Knight can transform by any of these.
+    let moves = [
+        
+        [-2,+1],
+        [-1,+2],  
+        
+        [-2,-1],  
+        [-1,-2],  
+        
+        [+1,+2],  
+        [+2,+1],  
+        
+        [+2,-1],  
+        [-1,-2], 
+        [+1,-2]      
+    ]
+
+
+     
+    for (item in moves){
+        positions.push([(moves[item][0]+currentPos[0]), (moves[item][1]+currentPos[1])])
+    }  
+    //returns array of all possible positions the knight can move to when called.
+    console.log(positions)
+    return positions
+}
+
+//pawns
+function pawnMovement(currentPos, type){
+
+    let positions = []
+
+    if (type == 'black'){
+        //moves for pawn. Transformations on the array.
+        let moves = [
+            [+2,0],
+            [+1,0]
+        ]
+        for (item in moves){
+            positions.push([(moves[item][0]+currentPos[0]), (moves[item][1]+currentPos[1])])
+        }  
+        console.log(positions)
+        return positions
+        
+    }else if (type == 'white'){
+        //moves for pawn. Transformations on the array.
+        let moves = [
+            [-2,0],
+            [-1,0]
+        ]
+        for (item in moves){
+            positions.push([(moves[item][0]+currentPos[0]), (moves[item][1]+currentPos[1])])
+        }  
+        console.log(positions)
+        return positions
+
+    }
+}
+
+//rook movement
+function rookMovement(currentPos){
+
+    let positions = []
+
+    //moves. Transformations (yet again!)
+    let moves = [
+    ]
+
+    //loops until 7. 7 is the maximum index for x and y axis on the board. pushes to moves array.
+    for (let i = 0; i <8; i++){
+        moves.push([+i,0])
+        moves.push([-i,0])
+        moves.push([0,+i])
+        moves.push([0,-i])
+    }
+
+    for (item in moves){
+        positions.push([(moves[item][0]+currentPos[0]), (moves[item][1]+currentPos[1])])
+
+    }  
+
+    return positions
+}
+
+//Bishop
+
 
 
 
