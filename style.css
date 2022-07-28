@@ -9,6 +9,10 @@ h1{
     
 }
 
+#music{
+    margin-bottom: 10px;
+}
+
 .circle{
     background-color: lightgray;
     border-radius: 20px;
