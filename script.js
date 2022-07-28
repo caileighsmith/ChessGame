@@ -6,6 +6,15 @@ let boardContainer = document.getElementById('board-container')
 var moveFx = new Audio('sounds/move.mp3');
 var taken = new Audio('sounds/taken.mp3');
 
+
+
+//Turn based system
+//White is always first. Meaning that if we count first go as 0, white will have every even go. Black will always be able to go on odd moves.
+let currentTurn = 0;
+
+
+
+//board array instantiating
 let board = [
     [['bR'],['bK'],['bB'],['bQ'],['bKn'],['bB'],['bK'],['bR']],
     [['bP'],['bP'],['bP'],['bP'],['bP'],['bP'],['bP'],['bP']],
@@ -127,62 +136,122 @@ var allowedBishopMoves = []
 var allowedQueenMoves = []
 var allowedKingMoves = []
 
+var correctSideMoving = false
+
 var allowedToMove = false
 function point(x){
     allowedToMove = false
 
-    if (!selectedTF){
+    if (selectedTF == false){
 
         
 
         //if there is a piece 
         if (x.innerHTML != ''){
-            selectedTF = true
-            selectedChessPiece = x
-            console.log(selectedChessPiece.id)
 
-            let piecePos = [Number(x.id[0]), Number(x.id[1])]
+            if (currentTurn % 2 == 0){
+                console.log('white turn')
+                if (x.innerHTML == '♙' || x.innerHTML == '♘' || x.innerHTML == '♗' || x.innerHTML == '♖' || x.innerHTML == '♕' || x.innerHTML == '♔'){
+                    correctSideMoving = true
+                    selectedTF = true
+                    
+                }
 
-            //if its a knight,  these are the allowed pos's. no pathfinding yet.
-            if (selectedChessPiece.innerHTML == '♘' || selectedChessPiece.innerHTML == '♞'){
-                allowedKnightMovements = knightMovement(piecePos)
-            }
-
-            //checking if pawn (black and white)
-            if (selectedChessPiece.innerHTML == '♟'){
-                allowedPawnMoves = pawnMovement(piecePos, 'black')
-            }
-            if (selectedChessPiece.innerHTML == '♙'){
-                allowedPawnMoves = pawnMovement(piecePos, 'white')
-            }
-
-            //checking if rook
-            if (selectedChessPiece.innerHTML == '♜' || selectedChessPiece.innerHTML == '♖'){
-                allowedRookMoves = rookMovement(piecePos)
+            }else{
+                console.log('black turn ')
                 
+                if (x.innerHTML == '♟' || x.innerHTML == '♞' || x.innerHTML == '♝' || x.innerHTML == '♜' || x.innerHTML == '♛' || x.innerHTML == '♚' ){
+                    correctSideMoving = true
+                    selectedTF = true
+                    
+                }
+
             }
 
-            if (selectedChessPiece.innerHTML == '♝' || selectedChessPiece.innerHTML == '♗'){
-                allowedBishopMoves = bishopMovement(piecePos)
-                console.log('bishop')
-            }
+            if (correctSideMoving == true){
 
-            if (selectedChessPiece.innerHTML == '♕' || selectedChessPiece.innerHTML == '♛'){
-                allowedQueenMoves = queenMovement(piecePos)
-            }
+                selectedChessPiece = x
+                console.log(selectedChessPiece.id)
 
-            if (selectedChessPiece.innerHTML == '♔' || selectedChessPiece.innerHTML == '♚'){
-                allowedKingMoves = kingMovement(piecePos)
-            }
+                let piecePos = [Number(x.id[0]), Number(x.id[1])]
+
+                //if its a knight,  these are the allowed pos's. no pathfinding yet.
+                if (selectedChessPiece.innerHTML == '♘' || selectedChessPiece.innerHTML == '♞'){
+                    allowedKnightMovements = knightMovement(piecePos)
+                }
+
+                //checking if pawn (black and white)
+                if (selectedChessPiece.innerHTML == '♟'){
+                    allowedPawnMoves = pawnMovement(piecePos, 'black')
+                }
+                if (selectedChessPiece.innerHTML == '♙'){
+                    allowedPawnMoves = pawnMovement(piecePos, 'white')
+                }
+
+                //checking if rook
+                if (selectedChessPiece.innerHTML == '♜' || selectedChessPiece.innerHTML == '♖'){
+                    allowedRookMoves = rookMovement(piecePos)
+                    
+                }
+
+                if (selectedChessPiece.innerHTML == '♝' || selectedChessPiece.innerHTML == '♗'){
+                    allowedBishopMoves = bishopMovement(piecePos)
+                    console.log('bishop')
+                }
+
+                if (selectedChessPiece.innerHTML == '♕' || selectedChessPiece.innerHTML == '♛'){
+                    allowedQueenMoves = queenMovement(piecePos)
+                }
+
+                if (selectedChessPiece.innerHTML == '♔' || selectedChessPiece.innerHTML == '♚'){
+                    allowedKingMoves = kingMovement(piecePos)
+                }
 
             
+                
             
 
 
         }
+        
+    }
+            
     //this means if the current piece has been selected:    
     }else if (selectedTF & selectedChessPiece != x){
-        console.log('TAKEN PIECE:' +x.innerHTML)
+
+        //make sure u cant eat your own sided pieces.
+        //loop through and check if it is black or white moving.
+        if (currentTurn % 2 == 0){
+            //whites turn
+            if (x.innerHTML != '♙' && x.innerHTML != '♘' && x.innerHTML != '♗' && x.innerHTML != '♖' && x.innerHTML != '♕' &&x.innerHTML != '♔'){
+                //calling the function above for all types of pieces.
+                allowMove(allowedKnightMovements)
+                allowMove(allowedPawnMoves)
+                allowMove(allowedRookMoves)
+                allowMove(allowedBishopMoves)
+                allowMove(allowedQueenMoves)
+                allowMove(allowedKingMoves)
+            }
+            else{
+                selectedTF = false
+            }
+        }else{
+            //black's turn
+            if (x.innerHTML != '♟' && x.innerHTML != '♞' && x.innerHTML != '♝' && x.innerHTML != '♜' && x.innerHTML != '♛' && x.innerHTML != '♚' ){
+                allowMove(allowedKnightMovements)
+                allowMove(allowedPawnMoves)
+                allowMove(allowedRookMoves)
+                allowMove(allowedBishopMoves)
+                allowMove(allowedQueenMoves)
+                allowMove(allowedKingMoves)
+            }
+            else{
+                selectedTF = false
+            }
+        }   
+
+
+        console.log('TARGET PIECE:' +x.innerHTML)
         //this function allows moves to work by checking if the moved to position is a legal pos.
         function allowMove(array){
             if (array != []){
@@ -195,23 +264,18 @@ function point(x){
                         allowedToMove = true
                         break
                     }
-                    
+                    selectedTF = false
                 }
             } 
         }
 
         
 
-        //calling the function above for all types of pieces.
-        allowMove(allowedKnightMovements)
-        allowMove(allowedPawnMoves)
-        allowMove(allowedRookMoves)
-        allowMove(allowedBishopMoves)
-        allowMove(allowedQueenMoves)
-        allowMove(allowedKingMoves)
+        
 
         //if the move is permitted. (remove this if statemnt in order to allow pieces to work if not knight)
         if (allowedToMove == true){
+
             if (x.innerHTML){
                 //if the taken piece is the white queen, black wins.
                 if (x.innerHTML == '♔'){
@@ -254,8 +318,19 @@ function point(x){
     
             
             console.log(board)
+            currentTurn = currentTurn + 1
+
+            //Now that we have incremented current turn. If the turn is divisble by 2, update html to say whites turn, else, blacks turn.
+            if (currentTurn % 2 == 0){
+                document.getElementById('turn').innerHTML = "White's turn."
+            }else{
+                document.getElementById('turn').innerHTML = "Black's turn."
+
+            }
+
             checkPoints()
         }
+        
 
         //Checking if piece is taken
         
@@ -398,12 +473,19 @@ function pawnMovement(currentPos, type){
 
     let positions = []
 
+    
+
     if (type == 'black'){
         //moves for pawn. Transformations on the array.
         let moves = [
-            [+2,0],
             [+1,0]
         ]
+
+        //check if pawn is on first move by checking if the white index is 1 (second row)
+        if (currentPos[0] == 1){
+            moves.push([+2,0])
+        }
+
         for (item in moves){
             positions.push([(moves[item][0]+currentPos[0]), (moves[item][1]+currentPos[1])])
         }  
@@ -413,9 +495,15 @@ function pawnMovement(currentPos, type){
     }else if (type == 'white'){
         //moves for pawn. Transformations on the array.
         let moves = [
-            [-2,0],
+
             [-1,0]
         ]
+
+        //check if pawn is on first move by checking if the black index is 6 (7th row)
+        if (currentPos[0] == 6){
+            moves.push([-2,0])
+        }
+
         for (item in moves){
             positions.push([(moves[item][0]+currentPos[0]), (moves[item][1]+currentPos[1])])
         }  
@@ -498,6 +586,8 @@ function bishopMovement(currentPos){
 
     }
 
+
+
     return positions
 }
 
@@ -553,6 +643,7 @@ function queenMovement(currentPos){
         positions.push([(moves[item][0]+currentPos[0]), (moves[item][1]+currentPos[1])])
 
     }
+
 
     return positions
 }
