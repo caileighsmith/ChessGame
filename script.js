@@ -90,6 +90,7 @@ function createBoard(){
                     square.setAttribute('class', 'square black')
                     square.setAttribute('onclick', 'point(this)')
                     square.setAttribute('id', String(i) + String(q))
+                    square.setAttribute('onmouseover','cursorChange(this)')
                     square.textContent = piece[row[q]]
                     rowDom.appendChild(square)
                 }else{
@@ -97,6 +98,7 @@ function createBoard(){
                     square.textContent = piece[row[q]]
                     square.setAttribute('class', 'square white')
                     square.setAttribute('onclick', 'point(this)')
+                    square.setAttribute('onmouseover','cursorChange(this)')
                     square.setAttribute('id', String(i) + String(q))
                     rowDom.appendChild(square)
 
@@ -108,6 +110,8 @@ function createBoard(){
                     //then we put the white square on the DOM.
                     square.setAttribute('class', 'square white')
                     square.setAttribute('onclick', 'point(this)')
+                    square.setAttribute('onmouseover','cursorChange(this)')
+
                     square.setAttribute('id', String(i) + String(q))
                     square.textContent = piece[row[q]]
                     rowDom.appendChild(square)
@@ -115,6 +119,8 @@ function createBoard(){
                     //else we put the black square on the DOM.
                     square.setAttribute('class', 'square black')
                     square.setAttribute('onclick', 'point(this)')
+                    square.setAttribute('onmouseover','cursorChange(this)')
+
                     square.setAttribute('id', String(i) + String(q))
                     square.textContent = piece[row[q]]
                     rowDom.appendChild(square)
@@ -149,6 +155,7 @@ function point(x){
         //if there is a piece 
         if (x.innerHTML != ''){
 
+            x.style.cursor = 'pointer'
             if (currentTurn % 2 == 0){
                 console.log('white turn')
                 if (x.innerHTML == '♙' || x.innerHTML == '♘' || x.innerHTML == '♗' || x.innerHTML == '♖' || x.innerHTML == '♕' || x.innerHTML == '♔'){
@@ -396,6 +403,14 @@ function checkPoints(){
 
 
 //MISC functions
+
+function cursorChange(x){
+    if (x.innerHTML != ''){
+        x.style.cursor = 'pointer'
+    }
+}
+
+
 
 //get Key from object value function
 function geyKey(object, value) {
