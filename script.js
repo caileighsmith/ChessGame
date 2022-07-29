@@ -161,6 +161,7 @@ function point(x){
                 if (x.innerHTML == '♙' || x.innerHTML == '♘' || x.innerHTML == '♗' || x.innerHTML == '♖' || x.innerHTML == '♕' || x.innerHTML == '♔'){
                     correctSideMoving = true
                     selectedTF = true
+          
                     
                 }
 
@@ -552,6 +553,31 @@ function rookMovement(currentPos){
 
     return positions
 }
+
+function settings(){
+    if (document.getElementById('settings')){
+        document.getElementById('settings').remove()
+    }else{
+        let settingDom = document.createElement('div')
+        settingDom.setAttribute('id', 'settings')
+        settingDom.innerHTML = 'Light side: '
+        settingDom.style.fontSize = '20px'
+        
+        let inputC = document.createElement('input')
+        inputC.setAttribute('id', 'lightColor')
+        inputC.setAttribute('type', 'color')
+
+        
+        settingDom.appendChild(inputC)
+
+
+        document.getElementById('settings-container').appendChild(settingDom)
+
+    }
+    
+}
+
+
 
 //Bishop moves
 function bishopMovement(currentPos){

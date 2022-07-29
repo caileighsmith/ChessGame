@@ -9,6 +9,22 @@ h1{
     
 }
 
+svg{
+    color: white;
+    
+}
+
+#settings{
+    border-radius: 10px;
+    width: 100%;
+    height: 200px;
+    background-color: white;
+}
+
+svg:hover{
+    cursor: pointer;
+}
+
 #music{
     margin-bottom: 10px;
 }
@@ -99,6 +115,7 @@ button{
 .row{
     display: flex;
     flex-direction: row;
+    
 
 }
 
