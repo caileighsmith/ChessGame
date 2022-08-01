@@ -243,7 +243,7 @@ function point(x){
                     console.log('black piece captured')
                     takenPieces.push(x.innerHTML)
                     console.log(takenPieces)
-                    document.getElementById('black-taken').innerHTML += x.innerHTML+'&#xFE0E'
+                    document.getElementById('black-taken').innerHTML += x.innerHTML
 
                 }
                 
@@ -268,7 +268,7 @@ function point(x){
                     console.log('white piece captured')
                     takenPieces.push(x.innerHTML)
                     console.log(takenPieces)
-                    document.getElementById('taken-list').innerHTML += x.innerHTML+'&#xFE0E'
+                    document.getElementById('taken-list').innerHTML += x.innerHTML
                     
                 }
                 allowMove(allowedKnightMovements)
@@ -345,7 +345,7 @@ function point(x){
     
             board[x.id[0]][x.id[1]] = geyKey(piece, selectedChessPiece.innerHTML)
     
-            x.innerHTML = selectedChessPiece.innerHTML+'&#xFE0E'
+            x.innerHTML = selectedChessPiece.innerHTML
     
             selectedChessPiece.innerHTML = ''
     
