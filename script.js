@@ -345,7 +345,7 @@ function point(x){
     
             board[x.id[0]][x.id[1]] = geyKey(piece, selectedChessPiece.innerHTML)
     
-            x.innerHTML = selectedChessPiece.innerHTML
+            x.innerHTML = selectedChessPiece.innerHTML+'&#xFE0E'
     
             selectedChessPiece.innerHTML = ''
     
