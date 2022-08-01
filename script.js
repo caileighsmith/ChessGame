@@ -243,7 +243,7 @@ function point(x){
                     console.log('black piece captured')
                     takenPieces.push(x.innerHTML)
                     console.log(takenPieces)
-                    document.getElementById('black-taken').innerHTML += x.innerHTML
+                    document.getElementById('black-taken').innerHTML += x.innerHTML+'&#xFE0E'
 
                 }
                 
