@@ -1,6 +1,9 @@
 //creating board.
 let boardContainer = document.getElementById('board-container')
 
+var takenPieces = []
+
+
 //var moveFx = document.getElementById("myAudio"); 
 
 var moveFx = new Audio('sounds/move.mp3');
@@ -132,6 +135,8 @@ function createBoard(){
 }
 
 
+
+
 //selected should be false if function has not been called yet.
 var selectedTF = false
 var selectedChessPiece = ''
@@ -181,7 +186,7 @@ function point(x){
                 selectedChessPiece = x
                 console.log(selectedChessPiece.id)
 
-                let piecePos = [Number(x.id[0]), Number(x.id[1])]
+                var piecePos = [Number(x.id[0]), Number(x.id[1])]
 
                 //if its a knight,  these are the allowed pos's. no pathfinding yet.
                 if (selectedChessPiece.innerHTML == '♘' || selectedChessPiece.innerHTML == '♞'){
@@ -232,6 +237,17 @@ function point(x){
         if (currentTurn % 2 == 0){
             //whites turn
             if (x.innerHTML != '♙' && x.innerHTML != '♘' && x.innerHTML != '♗' && x.innerHTML != '♖' && x.innerHTML != '♕' &&x.innerHTML != '♔'){
+                
+                //check if we are taking over a piece
+                if (x.innerHTML == '♟' || x.innerHTML == '♞' || x.innerHTML == '♝' || x.innerHTML == '♜' || x.innerHTML == '♛' || x.innerHTML == '♚' ){
+                    //code for if a piece is being captured
+                    console.log('black piece captured')
+                    takenPieces.push(x.innerHTML)
+                    console.log(takenPieces)
+                    document.getElementById('black-taken').innerHTML += x.innerHTML
+
+                }
+                
                 //calling the function above for all types of pieces.
                 allowMove(allowedKnightMovements)
                 allowMove(allowedPawnMoves)
@@ -246,6 +262,16 @@ function point(x){
         }else{
             //black's turn
             if (x.innerHTML != '♟' && x.innerHTML != '♞' && x.innerHTML != '♝' && x.innerHTML != '♜' && x.innerHTML != '♛' && x.innerHTML != '♚' ){
+                
+                //check if we are taking over a piece
+                if (x.innerHTML == '♙' || x.innerHTML == '♘' || x.innerHTML == '♗' || x.innerHTML == '♖' || x.innerHTML == '♕' || x.innerHTML == '♔'){
+                    //code for if a piece is being captured
+                    console.log('white piece captured')
+                    takenPieces.push(x.innerHTML)
+                    console.log(takenPieces)
+                    document.getElementById('taken-list').innerHTML += x.innerHTML
+                    
+                }
                 allowMove(allowedKnightMovements)
                 allowMove(allowedPawnMoves)
                 allowMove(allowedRookMoves)
@@ -410,6 +436,9 @@ function cursorChange(x){
         x.style.cursor = 'pointer'
     }
 }
+
+
+
 
 
 
@@ -713,5 +742,13 @@ function kingMovement(currentPos){
 
 
 
+//capturing pieces logic
+
+
+
 createBoard()
 checkPoints()
+let blackTaken = document.createElement('h1')
+blackTaken.setAttribute('id', 'black-taken')
+
+document.getElementById('board-container').appendChild(blackTaken)
