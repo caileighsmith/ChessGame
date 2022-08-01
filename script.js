@@ -30,7 +30,6 @@ let board = [
 ]
 
 
-
 //building pieces
 let piece = {
     //black pieces with ascii
@@ -269,7 +268,7 @@ function point(x){
                     console.log('white piece captured')
                     takenPieces.push(x.innerHTML)
                     console.log(takenPieces)
-                    document.getElementById('taken-list').innerHTML += x.innerHTML
+                    document.getElementById('taken-list').innerHTML += x.innerHTML+'&#xFE0E'
                     
                 }
                 allowMove(allowedKnightMovements)
